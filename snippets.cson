@@ -1,0 +1,236 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+#--------------------------------------------------------------
+# CSS Snippets
+#--------------------------------------------------------------
+'.source.css':
+
+	# Sass file opening comment.
+	'comment':
+		'prefix': 'commentaire'
+		'body': '''
+				/**********************************
+				** ${1:foo}
+				**********************************/
+				'''
+	'var':
+		'prefix': 'Variable Couleur'
+		'body': '''
+				var(${1:--color-secondary})
+				'''
+
+'.source.scss':
+
+	# Sass file opening comment.
+	'Comment':
+		'prefix': 'commentaire'
+		'body': '''
+				//--------------------------------------------------------------
+				// ${1:foo}
+				//--------------------------------------------------------------
+				'''
+
+	# A sass bracket.
+	'Sass Bracket':
+		'prefix': 'brak'
+		'body': '''
+				${1:foo} {
+					$2
+				} // ${1:foo}
+				'''
+
+	# Neat's media query.
+	'Neats media query':
+		'prefix': 'mquery'
+		'body': '''
+				@include media(${1:\$tablet-landscape}) {
+					$2
+				}
+				'''
+
+	# @font-face declaration.
+	'@font-face declaration':
+		'prefix': 'font'
+		'body': '''
+				@font-face {
+					font-family: '${1:foo_font}';
+					font-style: normal;
+					font-weight: 400;
+					src: local('${2:Foo-Font}'), local('${3:Foo-Font-Normal}'), local('${4:Foo Font}'), url(${5:/path/to/font-file.woff) format('woff'), url(${6:/path/to/font-file.woff2) format('woff2');
+				}
+				'''
+
+	# Reset margin and padding.
+	'Reset margin and padding':
+		'prefix': 'margin'
+		'body': '''
+				@include margin-padding-reset;
+				'''
+
+	# Set a size width using Bourbon's size mixin.
+	'Bourbon size mixin':
+		'prefix': 'size'
+		'body': '''
+				@include size(rem(${1:width}) rem(${2:height}));
+				'''
+
+	# Set a column width using Neat.
+	'Set a column width using Neat':
+		'prefix': 'span'
+		'body': '''
+				@include span-columns(${1:8});
+				'''
+
+#--------------------------------------------------------------
+# PHP Snippets
+#--------------------------------------------------------------
+'.source.php':
+	# Take a 💩.
+	'💩':
+		'prefix': 'dump'
+		'body': '''
+                echo '<pre>';die(var_dump( $1 ));
+				'''
+	# Take a print_r.
+	'print_r':
+		'prefix': 'prt'
+		'body': '''
+		        echo '<pre>';
+		        print_r( $1 );
+		        echo '</pre>';
+				'''
+	# Link WP
+	'LinkArchive':
+		'prefix': 'link_archive'
+		'body': '''
+				<a class="${1:class}" href='#' title="<?php _e( '${2:titre}', 'domain' ); ?>"><?php _e( '${2:titre}', 'domain' ); ?></a>
+				'''
+
+	# Create a WP_Query().
+	'WP_QUERY':
+		'prefix': 'query'
+		'body': '''
+				\$args = array(
+					'post_type' => '${1:post_type}',
+					'posts_per_page' => ${2:-1}
+				);
+				\$query = new WP_Query( $args );
+				if(!empty(\$query)){
+					foreach (\$query->posts as $key => $value) {
+						${3:Go !!!}
+					}
+				}
+				'''
+
+	# AddAction.
+	'ADD_ACTION':
+		'prefix': 'add_action'
+		'body': '''
+				add_action('${2:action}', [$this, '${1:nameOfFunction}']);
+
+				public function ${1:nameOfFunction}(){
+
+				}
+				'''
+	# AddFilter.
+	'ADD_FILTER':
+		'prefix': 'add_filter'
+		'body': '''
+				add_filter('${2:filter}', [$this, '${1:nameOfFunction}']);
+
+				public function ${1:nameOfFunction}(){
+
+				}
+				'''
+
+	# Register 🏙 sizes in WordPress.
+	'Register 🏙 Size':
+		'prefix': 'image'
+		'body': '''
+				add_image_size( '${1:foo_size}', ${2:300}, ${3:350}, ${4:array( 'left', 'top' )} );
+				'''
+
+	# Internationalize a text string.
+	'Traduction var':
+		'prefix': '__'
+		'body': '''
+				__( '${1:some text}', 'domain' )
+				'''
+	# Internationalize a text string.
+	'Traduction echo var':
+		'prefix': '_e'
+		'body': '''
+				_e( '${1:some text}', 'domain' ); ?>
+				'''
+	# Internationalize a text string.
+	'Traduction echo var number':
+		'prefix': '_n'
+		'body': '''
+				sprintf( _n( '%s ${1:singular}', '%s ${2:plural}', ${3:$number}, 'domain' ), ${3:$number}); ?>
+				'''
+
+	# Regular 'ol WordPress loop.
+	'WordPress loop':
+		'prefix': 'loopwp'
+		'body': '''
+				${1:\$foo_query} = new WP_Query( \$args ); ?>
+				<?php if ( ${1:\$foo_query}->have_posts() ) : ?>
+					<?php while ( ${1:\$foo_query}->have_posts() ) : ${1:\$foo_query}->the_post(); ?>
+						$2
+					<?php endwhile; ?>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
+				'''
+
+	# 📬 the debugging info to yourself.
+	'📬 the debugging info to yourself':
+		'prefix': 'email'
+		'body': '''
+				wp_mail( 'my@email.com', '${1:Sujet}', print_r( ${2:Variable_print}, true) );
+				'''
+
+	# Enable WP_DEBUG.
+	'Enable WP_DEBUG':
+		'prefix': 'wpdebug'
+		'body': '''
+				define( 'WP_DEBUG', true );
+				if ( WP_DEBUG ) {
+					define( 'JETPACK_DEV_DEBUG', true );
+					define( 'SCRIPT_DEBUG', true );
+					define( 'WP_CACHE', false );
+					define( 'WP_DEBUG_DISPLAY', true );
+					define( 'WP_DEBUG_LOG', false );
+				}
+				'''
+
+#--------------------------------------------------------------
+# JavaScript Snippets
+#--------------------------------------------------------------
+'.source.js':
+
+	# jQuery Object - The WDS Way.
+	'consoleLOG':
+		'prefix': 'consoleLOG'
+		'body': '''
+				console.log(${1:VAR})
+				'''
